@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Color;
+
 /**
  *
  * @author Leonel
@@ -28,48 +30,184 @@ public class home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(49, 57, 69));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icons8_technical_support_wearing_glasses_64px.png"))); // NOI18N
+        jButton4.setText("Profesionales");
+        jButton4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(49, 57, 69));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icons8_company_64px.png"))); // NOI18N
+        jButton5.setText("Empresas");
+        jButton5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setFocusPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(49, 57, 69));
+        jButton6.setText("jButton1");
+        jButton6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setFocusPainted(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(49, 57, 69));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Administración");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("jButton1");
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(49, 57, 69));
+        jButton7.setText("jButton1");
+        jButton7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setFocusPainted(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(49, 57, 69));
+        jButton8.setText("jButton1");
+        jButton8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton8.setBorderPainted(false);
+        jButton8.setContentAreaFilled(false);
+        jButton8.setFocusPainted(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(49, 57, 69));
+        jButton9.setText("jButton1");
+        jButton9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jButton9.setBorderPainted(false);
+        jButton9.setContentAreaFilled(false);
+        jButton9.setFocusPainted(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jButton1))
+                        .addGap(61, 61, 61)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(39, 39, 39))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(356, 356, 356)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(364, 364, 364))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addGap(48, 48, 48)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(169, 169, 169))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel1)
-                .addGap(81, 81, 81)
-                .addComponent(jButton1)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5)
+                    .addComponent(jButton4))
+                .addGap(114, 114, 114)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton7)
+                    .addComponent(jButton9))
+                .addGap(130, 130, 130))
         );
 
         getContentPane().add(jPanel2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,8 +245,14 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+    
 }
