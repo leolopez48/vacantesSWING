@@ -5,12 +5,36 @@
  */
 package vistas;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import controlador.Credenciales;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.Usuario;
+import modelo.Profesional;
+import vistas.home;
+
 /**
  *
  * @author Leonel
  */
 public class Login extends javax.swing.JFrame {
 
+    //Variables
+    Credenciales bd = new Credenciales();
+    Connection con;
+    String sql="";
+    List<Usuario> data = new ArrayList<>();
+    PreparedStatement pst;
+    ResultSet rs;
+    
     /**
      * Creates new form Login
      */
@@ -43,6 +67,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
         setType(java.awt.Window.Type.POPUP);
@@ -102,7 +127,12 @@ public class Login extends javax.swing.JFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 57, 69)));
         jButton1.setContentAreaFilled(false);
         jButton1.setDefaultCapable(false);
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 184, 46));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 184, 46));
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel4.setText("Usuario");
@@ -142,8 +172,36 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Botón login
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.sql="select nombre_usuario, contra, prioridad from usuario";
+        try {
+            Class.forName(bd.getDriver());
+            this.con = DriverManager.getConnection(bd.getUrl(),bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                /*data.add(new Usuario(this.rs.getString("nombre_usuario"),
+                        this.rs.getInt("prioridad"),
+                        this.rs.getString("contra")));*/
+                if(this.rs.getString("nombre_usuario").equals(jTextField1.getText()) && this.rs.getString("contra").equals(jTextField3.getText()) && this.rs.getInt("prioridad") == 1 ){
+                    //JOptionPane.showMessageDialog(this, "Te has loggeado.");
+                    super.setVisible(false);
+                    new home().setVisible(true);
+                }
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -155,7 +213,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
