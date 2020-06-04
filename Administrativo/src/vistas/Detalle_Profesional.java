@@ -27,7 +27,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
     public void cerrarVentana(){
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                new Profesional().setVisible(true);           
+                //new Profesional().setVisible(true);           
             }
         });
     }

@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import modelo.Usuario;
-import modelo.Profesional;
+import modelo.ModeloUsuario;
+import modelo.ModeloProfesional;
 import vistas.home;
 
 /**
@@ -31,7 +31,7 @@ public class Login extends javax.swing.JFrame {
     Credenciales bd = new Credenciales();
     Connection con;
     String sql="";
-    List<Usuario> data = new ArrayList<>();
+    List<ModeloUsuario> data = new ArrayList<>();
     PreparedStatement pst;
     ResultSet rs;
     
@@ -58,7 +58,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -119,20 +119,20 @@ public class Login extends javax.swing.JFrame {
         jTextField3.setBorder(null);
         jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 269, 28));
 
-        jButton1.setBackground(new java.awt.Color(49, 57, 69));
-        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(49, 57, 69));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icons8_enter_32px.png"))); // NOI18N
-        jButton1.setText("Iniciar sesión");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 57, 69)));
-        jButton1.setContentAreaFilled(false);
-        jButton1.setDefaultCapable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(49, 57, 69));
+        btnLogin.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(49, 57, 69));
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icons8_enter_32px.png"))); // NOI18N
+        btnLogin.setText("Iniciar sesión");
+        btnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 57, 69)));
+        btnLogin.setContentAreaFilled(false);
+        btnLogin.setDefaultCapable(false);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 184, 46));
+        jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 184, 46));
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         jLabel4.setText("Usuario");
@@ -176,23 +176,29 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //Botón login
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.sql="select nombre_usuario, contra, prioridad from usuario";
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        int validado = 0;
+        this.sql="select nombre_usuario, contra, prioridad, estado from usuario";
         try {
             Class.forName(bd.getDriver());
             this.con = DriverManager.getConnection(bd.getUrl(),bd.getUsuario(),bd.getContraseña());
             this.pst = this.con.prepareStatement(this.sql);
             this.rs = this.pst.executeQuery();
             while(this.rs.next()){
-                /*data.add(new Usuario(this.rs.getString("nombre_usuario"),
-                        this.rs.getInt("prioridad"),
-                        this.rs.getString("contra")));*/
-                if(this.rs.getString("nombre_usuario").equals(jTextField1.getText()) && this.rs.getString("contra").equals(jTextField3.getText()) && this.rs.getInt("prioridad") == 1 ){
-                    //JOptionPane.showMessageDialog(this, "Te has loggeado.");
+                if(this.rs.getString("nombre_usuario").equals(jTextField1.getText()) && this.rs.getString("contra").equals(jTextField3.getText()) 
+                        && this.rs.getInt("prioridad") == 1 && this.rs.getInt("estado") == 1){
                     super.setVisible(false);
                     new home().setVisible(true);
+                    validado = 1;
+                }else{
+                    validado = 0;
                 }
             }
+            
+            if(validado == 0){
+                JOptionPane.showMessageDialog(this, "Error: Esto se puede deber a que su usuario no existe o ha sido bloqueado de la plataforma.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
             this.con.close();
             this.rs.close();
             
@@ -200,11 +206,8 @@ public class Login extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -238,7 +241,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
