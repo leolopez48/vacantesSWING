@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
 import java.awt.Frame;
@@ -33,7 +29,7 @@ public class Profesional extends javax.swing.JFrame {
     String []columnas ={"CODIGO","EDAD","NOMBRES","APELLIDOS"
             ,"CORREO","USUARIO"};
     DefaultTableModel modelo = new DefaultTableModel(columnas,0);
-    List<ModeloProfesional> data = new ArrayList<ModeloProfesional>();
+    List<ModeloProfesional> data = new ArrayList<>();
     ControladorProfesional pro = new ControladorProfesional();
     
     public Profesional() {
@@ -374,7 +370,10 @@ public class Profesional extends javax.swing.JFrame {
 
     private void Enter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Enter
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            new Detalle_Profesional().setVisible(true);
+            int row = jTDatos.getSelectedRow();
+            Integer id_profesional=(Integer)jTDatos.getValueAt(row, 0);
+            new Detalle_Profesional(id_profesional).setVisible(true);
+            //Object obj=(Integer)jTDatos.getValueAt(row, 0);
             //super.dispose();
         }
     }//GEN-LAST:event_Enter

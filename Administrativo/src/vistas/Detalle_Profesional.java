@@ -5,9 +5,13 @@
  */
 package vistas;
 
+import controlador.ControladorProfesional;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ModeloProfesional;
 
 /**
  *
@@ -18,10 +22,33 @@ public class Detalle_Profesional extends javax.swing.JFrame {
     /**
      * Creates new form Detalle_Profesional
      */
+    ControladorProfesional pro = new ControladorProfesional();
+    List<ModeloProfesional> data = new ArrayList<>();
+    
     public Detalle_Profesional() {
         initComponents();
         super.setExtendedState(Frame.MAXIMIZED_BOTH);
         cerrarVentana();
+    }
+    
+    public Detalle_Profesional(Integer id_profesional) {
+        initComponents();
+        super.setExtendedState(Frame.MAXIMIZED_BOTH);
+        cerrarVentana();
+        cargar(id_profesional);
+        
+    }
+    
+    public void cargar(Integer id_profesional){
+        data = pro.seleccionarProfesional(id_profesional);
+        for(ModeloProfesional fila: data){
+            /*fila.getId_profesional();
+            fila.getEdad();*/
+            txtNombre.setText(fila.getApellido_profesional()+", "+fila.getNombre_profesional());
+            
+            /*fila.getCorreo();
+            fila.getId_usuario();*/
+        }
     }
 
     public void cerrarVentana(){
@@ -40,7 +67,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnTituloPerfil = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -87,9 +114,9 @@ public class Detalle_Profesional extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información básica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 0, 18), new java.awt.Color(49, 57, 69))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(49, 57, 69));
 
-        jTextField1.setBackground(new java.awt.Color(233, 235, 237));
-        jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jTextField1.setBorder(null);
+        txtNombre.setBackground(new java.awt.Color(233, 235, 237));
+        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txtNombre.setBorder(null);
 
         jTextField2.setBackground(new java.awt.Color(233, 235, 237));
         jTextField2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -168,7 +195,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSeparator2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel7)
@@ -207,7 +234,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -394,7 +421,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
         );
 
         pack();
@@ -460,7 +487,6 @@ public class Detalle_Profesional extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -468,5 +494,6 @@ public class Detalle_Profesional extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
