@@ -6,26 +6,47 @@ package modelo;
  * @author Leonel
  */
 public class ModeloProfesional {
-    private int id_profesional;
-    private int edad;
+    private Integer id_profesional;
+    private Integer edad;
     private String nombre_profesional;
     private String apellido_profesional;
     private String correo;
-    private int id_usuario;
+    private String foto;
+    private String profesion;
+    private ModeloUsuario usuario;
 
-    public ModeloProfesional(int id_profesional, int edad, String nombre_profesional, String apellido_profesional, String correo, int id_usuario) {
+    public ModeloProfesional(Integer id_profesional, Integer edad, String nombre_profesional, String apellido_profesional, 
+                            String correo, Integer id_usuario, String nombre_usuario, Integer prioridad, String contra, 
+                            String foto, Integer estado, String profesion) {
+        this.usuario = new ModeloUsuario(id_usuario, nombre_usuario, prioridad, contra, foto, estado);
         this.id_profesional = id_profesional;
         this.edad = edad;
         this.nombre_profesional = nombre_profesional;
         this.apellido_profesional = apellido_profesional;
         this.correo = correo;
-        this.id_usuario = id_usuario;
+        this.profesion = profesion;
+    }
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public ModeloProfesional() {
     }
 
-    public int getId_profesional() {
+    public Integer getId_profesional() {
         return id_profesional;
     }
 
@@ -33,11 +54,11 @@ public class ModeloProfesional {
         this.id_profesional = id_profesional;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
@@ -65,12 +86,12 @@ public class ModeloProfesional {
         this.correo = correo;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public ModeloUsuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setUsuario(ModeloUsuario usuario) {
+        this.usuario = usuario;
     }
     
 }

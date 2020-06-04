@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.ModeloProfesional;
+import modelo.ModeloUsuario;
 
 /**
  *
@@ -37,8 +39,14 @@ public class ControladorProfesional {
                         this.rs.getString("nombre_profesional"),
                         this.rs.getString("apellido_profesional"),
                         this.rs.getString("correo"),
-                        this.rs.getInt("id_usuario")
-                )); 
+                        this.rs.getInt("id_usuario"),
+                        this.rs.getString("nombre_usuario"),
+                        this.rs.getInt("prioridad"),
+                        this.rs.getString("contra"),
+                        this.rs.getString("foto_usuario"),
+                        this.rs.getInt("estado"),
+                        this.rs.getString("profesion")
+                ));
                         //this.rs.getDouble("salario"), 
                         //new Departamentos(this.rs.getInt("idDepartamento"))));
             }
@@ -51,23 +59,29 @@ public class ControladorProfesional {
         return this.data;  
     }
     
-        public List<modelo.ModeloProfesional> seleccionarProfesional(Integer id_profesional) {
-        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario";
+    public modelo.ModeloProfesional seleccionarProfesional(Integer id_profesional) {
+        ModeloProfesional pro=null;
+        this.sql="SELECT * FROM profesional AS pro INNER JOIN usuario as usu ON pro.id_usuario = usu.id_usuario where pro.id_usuario=?";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
             this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_profesional);
             this.rs = this.pst.executeQuery();
             while(this.rs.next()){
-                data.add(new modelo.ModeloProfesional(this.rs.getInt("id_profesional"), 
+                pro = new modelo.ModeloProfesional(this.rs.getInt("id_profesional"), 
                         this.rs.getInt("edad"), 
                         this.rs.getString("nombre_profesional"),
                         this.rs.getString("apellido_profesional"),
                         this.rs.getString("correo"),
-                        this.rs.getInt("id_usuario")
-                )); 
-                        //this.rs.getDouble("salario"), 
-                        //new Departamentos(this.rs.getInt("idDepartamento"))));
+                        this.rs.getInt("id_usuario"),
+                        this.rs.getString("nombre_usuario"),
+                        this.rs.getInt("prioridad"),
+                        this.rs.getString("contra"),
+                        this.rs.getString("foto_usuario"),
+                        this.rs.getInt("estado"),
+                        this.rs.getString("profesion")
+                );
             }
             this.con.close();
             this.rs.close();
@@ -75,6 +89,6 @@ public class ControladorProfesional {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return this.data;  
+        return pro;  
     }
 }
