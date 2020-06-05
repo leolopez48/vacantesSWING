@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import modelo.ModeloHabilidades;
 import modelo.ModeloProfesional;
 
@@ -15,9 +14,8 @@ import modelo.ModeloProfesional;
  *
  * @author Leonel
  */
-public class ControladorHabilidades {
+public class ControladorGenero {
     
-    modelo.ModeloHabilidades emp = new modelo.ModeloHabilidades();
     Credenciales bd = new Credenciales();
     ArrayList<modelo.ModeloHabilidades> data = new ArrayList<>();
     String sql="";
@@ -27,7 +25,7 @@ public class ControladorHabilidades {
     
     public ArrayList<modelo.ModeloHabilidades> seleccionarIdiomas(Integer id_profesional) {
         ModeloHabilidades pro=null;
-        this.sql="SELECT * FROM habilidad where id_profesional=?";
+        this.sql="SELECT * FROM genero where id_profesional=?";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
@@ -48,5 +46,4 @@ public class ControladorHabilidades {
         }
         return data;  
     }
-    
 }

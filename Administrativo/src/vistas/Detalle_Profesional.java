@@ -1,6 +1,8 @@
 
 package vistas;
 
+import controlador.ControladorHabilidades;
+import controlador.ControladorIdioma;
 import controlador.ControladorProfesional;
 import java.awt.Button;
 import java.awt.Dimension;
@@ -15,6 +17,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import modelo.ModeloHabilidades;
+import modelo.ModeloIdioma;
 
 /**
  *
@@ -26,8 +30,11 @@ public class Detalle_Profesional extends javax.swing.JFrame {
      */
     ControladorProfesional pro = new ControladorProfesional();
     ModeloProfesional profesional = new ModeloProfesional();
+    ControladorHabilidades habilidad = new ControladorHabilidades();
+    ControladorIdioma idioma = new ControladorIdioma();
     List<ModeloProfesional> data = new ArrayList<>();
     List<ModeloHabilidades> habilidades = new ArrayList<>();
+    List<ModeloIdioma> idiomas = new ArrayList<>();
     
     public Detalle_Profesional() {
         initComponents();
@@ -52,23 +59,24 @@ public class Detalle_Profesional extends javax.swing.JFrame {
         ImageIcon imageIcon = new ImageIcon(new ImageIcon((String)profesional.getUsuario().getFoto()).getImage().getScaledInstance(190, 190, Image.SCALE_DEFAULT));
         btnFoto.setText("");
         btnFoto.setIcon(imageIcon);
-            
+        
         txtEdad.setText(profesional.getEdad().toString());
         txtProfesion.setText(profesional.getProfesion());
-        
-        for(int i =0; i<4; i++){
+        habilidades = habilidad.seleccionarIdiomas(profesional.getId_profesional());
+        for(ModeloHabilidades hab: habilidades){
+            
             JLabel lbl = new JLabel();
             lbl.setBackground(new java.awt.Color(255,255,255));
             lbl.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
             lbl.setMinimumSize(new Dimension(10,10));
             lbl.setMaximumSize(new Dimension(30,30));
-            lbl.setText("Idioma");
+            lbl.setText("Habilidad");
             jPanel7.add(lbl);
             
             JTextField txt = new JTextField("Idioma ");
             txt.setBackground(new java.awt.Color(255,255,255));
             txt.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-            txt.setText("Hola");
+            txt.setText(hab.getDescripcion());
             /*txt.setMinimumSize(new Dimension(30,30));
             txt.setMaximumSize(new Dimension(30,30));*/
             txt.setBorder(null);
@@ -84,9 +92,45 @@ public class Detalle_Profesional extends javax.swing.JFrame {
             separator.setBackground(new java.awt.Color(233, 235, 237));
             separator.setForeground(new java.awt.Color(49, 57, 69));
             jPanel7.add(separator);
-        }
             
-            jPanel7.updateUI();
+        }
+        
+        idiomas = idioma.seleccionarIdiomas(profesional.getId_profesional());
+        for(ModeloIdioma idi: idiomas){
+            
+            JLabel lbl = new JLabel();
+            lbl.setBackground(new java.awt.Color(255,255,255));
+            lbl.setFont(new java.awt.Font("Comic Sans MS", 0, 18));
+            lbl.setMinimumSize(new Dimension(10,10));
+            lbl.setMaximumSize(new Dimension(10,10));
+            lbl.setText("Idioma");
+            jPanel10.add(lbl);
+            
+            JTextField txt = new JTextField("Idioma ");
+            txt.setBackground(new java.awt.Color(255,255,255));
+            txt.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+            txt.setText(idi.getIdioma());
+            /*txt.setMinimumSize(new Dimension(5,5));
+            txt.setMaximumSize(new Dimension(5,5));*/
+            txt.setBorder(null);
+            jPanel10.add(txt);
+            
+            JLabel lblsalto = new JLabel();
+            lblsalto.setMinimumSize(new Dimension(0,0));
+            lblsalto.setMaximumSize(new Dimension(0,0));
+            jPanel10.add(lblsalto);
+            
+            
+            JSeparator separator = new JSeparator();
+            separator.setBackground(new java.awt.Color(233, 235, 237));
+            separator.setForeground(new java.awt.Color(49, 57, 69));
+            jPanel10.add(separator);
+            
+        }
+        
+        jPanel7.updateUI();
+        jPanel10.updateUI();
+        
     }
     
     
@@ -141,6 +185,8 @@ public class Detalle_Profesional extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -266,7 +312,7 @@ public class Detalle_Profesional extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFoto)
                 .addGap(193, 193, 193))
         );
@@ -473,7 +519,30 @@ public class Detalle_Profesional extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Idiomas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 0, 18))); // NOI18N
+        jPanel8.setToolTipText("Idiomas");
+        jPanel8.setName("Idiomas"); // NOI18N
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setLayout(new java.awt.GridLayout(0, 2));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -492,7 +561,10 @@ public class Detalle_Profesional extends javax.swing.JFrame {
                             .addComponent(btnTituloPerfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -502,14 +574,19 @@ public class Detalle_Profesional extends javax.swing.JFrame {
                 .addComponent(btnTituloPerfil)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(269, Short.MAX_VALUE))
         );
+
+        jPanel8.getAccessibleContext().setAccessibleName("Idiomas");
+        jPanel8.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane1.setViewportView(jPanel4);
 
@@ -580,12 +657,14 @@ public class Detalle_Profesional extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
