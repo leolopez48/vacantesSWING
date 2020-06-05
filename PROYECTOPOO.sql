@@ -1,6 +1,3 @@
-drop database vacante;
-create database vacante;
-use vacante;
 create table usuario
 (
 id_usuario int not null,
@@ -105,15 +102,10 @@ alter table profesional add constraint fk_genero foreign key (id_genero) referen
 INSERT INTO `genero` (`id_genero`, `genero`) VALUES ('1', 'Masculino');
 INSERT INTO `genero` (`id_genero`, `genero`) VALUES ('2', 'Femenino');
 INSERT INTO `genero` (`id_genero`, `genero`) VALUES ('3', 'Otro');
-
-insert into usuario (id_usuario, nombre_usuario, prioridad, contra, foto_usuario, estado) values(1,"leolopez",1,"12345","C:/Users/Leonel/Pictures/Screenshots/Screenshot.png", 1);
+insert into usuario (id_usuario, nombre_usuario, prioridad, contra, foto_usuario, estado) values(1,"leolopez",1,"12345","C:\Users\Roberto\Pictures\proyecto\1.jpg", 1);
 insert into profesional (id_profesional, edad, nombre_profesional, apellido_profesional,profesion, correo, id_usuario, id_genero) values(1,34,"Leonel","Lopez","Programador", "elprogramador@gmail.com", 1, 1); 
-
-insert into usuario (id_usuario, nombre_usuario, prioridad, contra, foto_usuario, estado) values(2,"leolopez",1,"12345","C:/Users/Leonel/Pictures/Screenshots/Screenshot.png", 1);
+insert into usuario (id_usuario, nombre_usuario, prioridad, contra, foto_usuario, estado) values(2,"rob",1,"123","C:\Users\Roberto\Pictures\proyecto\2.png", 1);
 insert into profesional (id_profesional, edad, nombre_profesional, apellido_profesional,profesion, correo, id_usuario, id_genero) values(2,34,"Roberto","Armijo","Programador", "elprogramador@gmail.com", 2, 1); 
 
-INSERT INTO `habilidad` (`id_habilidad`, `descripcion`, `id_profesional`) VALUES ('1', 'Idioma', '1'), ('2', 'Curso', '1');
-
-INSERT INTO `idioma` (`id_idioma`, `idioma`, `id_habilidad`) VALUES ('1', 'Español', '1'), ('2', 'Ingles', '1');
- 
-
+insert into empresa(id_empresa,nombre_empresa,descripcion,id_usuario) values (1,"DELL","Buena Empresa de Tecnologia",1);
+insert into empresa(id_empresa,nombre_empresa,descripcion,id_usuario) values (2,"IBM","Tecnologia y mas, Empresa dedicada a la comunidad y a otras cosas",1);
