@@ -14,10 +14,12 @@ public class ModeloProfesional {
     private String foto;
     private String profesion;
     private ModeloUsuario usuario;
+    private ModeloGenero genero;
+    private ArrayList<ModeloHabilidades> habilidades= new ArrayList<>();
 
     public ModeloProfesional(Integer id_profesional, Integer edad, String nombre_profesional, String apellido_profesional, 
                             String correo, Integer id_usuario, String nombre_usuario, Integer prioridad, String contra, 
-                            String foto, Integer estado, String profesion) {
+                            String foto, Integer estado, String profesion, ModeloGenero genero) {
         this.usuario = new ModeloUsuario(id_usuario, nombre_usuario, prioridad, contra, foto, estado);
         this.id_profesional = id_profesional;
         this.edad = edad;
@@ -25,6 +27,25 @@ public class ModeloProfesional {
         this.apellido_profesional = apellido_profesional;
         this.correo = correo;
         this.profesion = profesion;
+        this.genero = genero;
+    }
+    
+    public ModeloProfesional(Integer id_profesional, Integer edad, String nombre_profesional, String apellido_profesional, 
+                            String correo, Integer id_usuario, String nombre_usuario, Integer prioridad, String contra, 
+                            String foto, Integer estado, String profesion, ArrayList<ModeloHabilidades> habilidades, ModeloGenero genero) {
+        this.usuario = new ModeloUsuario(id_usuario, nombre_usuario, prioridad, contra, foto, estado);
+        this.id_profesional = id_profesional;
+        this.edad = edad;
+        this.nombre_profesional = nombre_profesional;
+        this.apellido_profesional = apellido_profesional;
+        this.correo = correo;
+        this.profesion = profesion;
+        this.habilidades = habilidades;
+        this.genero = genero;
+    }
+
+    public ModeloProfesional(Integer id_profesional) {
+        this.id_profesional = id_profesional;
     }
 
     public String getProfesion() {
@@ -92,6 +113,22 @@ public class ModeloProfesional {
 
     public void setUsuario(ModeloUsuario usuario) {
         this.usuario = usuario;
+    }
+
+    public ArrayList<ModeloHabilidades> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(ArrayList<ModeloHabilidades> habilidades) {
+        this.habilidades = habilidades;
+    }
+
+    public ModeloGenero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(ModeloGenero genero) {
+        this.genero = genero;
     }
     
 }

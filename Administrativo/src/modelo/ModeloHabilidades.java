@@ -11,6 +11,7 @@ public class ModeloHabilidades {
     private ModeloProfesional id_profesional;
 
     public ModeloHabilidades(Integer id_habilidad) {
+        this.id_habilidad = id_habilidad;
     }
 
     public ModeloHabilidades() {

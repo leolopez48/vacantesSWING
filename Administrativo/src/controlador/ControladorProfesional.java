@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.ModeloGenero;
 import modelo.ModeloProfesional;
 import modelo.ModeloUsuario;
 
@@ -27,7 +28,7 @@ public class ControladorProfesional {
     
     
     public List<modelo.ModeloProfesional> seleccionar() {
-        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario";
+        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario inner join genero on profesional.id_genero = genero.id_genero";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
@@ -45,7 +46,9 @@ public class ControladorProfesional {
                         this.rs.getString("contra"),
                         this.rs.getString("foto_usuario"),
                         this.rs.getInt("estado"),
-                        this.rs.getString("profesion")
+                        this.rs.getString("profesion"),
+                        new ModeloGenero(this.rs.getInt("id_genero"),
+                        this.rs.getString("genero"))
                 ));
                         //this.rs.getDouble("salario"), 
                         //new Departamentos(this.rs.getInt("idDepartamento"))));
@@ -61,7 +64,8 @@ public class ControladorProfesional {
     
     public modelo.ModeloProfesional seleccionarProfesional(Integer id_profesional) {
         ModeloProfesional pro=null;
-        this.sql="SELECT * FROM profesional AS pro INNER JOIN usuario as usu ON pro.id_usuario = usu.id_usuario where pro.id_usuario=?";
+        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario "
+                + "inner join genero on profesional.id_genero = genero.id_genero where profesional.id_profesional=?";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
@@ -80,7 +84,9 @@ public class ControladorProfesional {
                         this.rs.getString("contra"),
                         this.rs.getString("foto_usuario"),
                         this.rs.getInt("estado"),
-                        this.rs.getString("profesion")
+                        this.rs.getString("profesion"),
+                        new ModeloGenero(this.rs.getInt("id_genero"),
+                        this.rs.getString("genero"))
                 );
             }
             this.con.close();

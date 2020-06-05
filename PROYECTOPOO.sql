@@ -109,3 +109,10 @@ insert into profesional (id_profesional, edad, nombre_profesional, apellido_prof
 
 insert into empresa(id_empresa,nombre_empresa,descripcion,id_usuario) values (1,"DELL","Buena Empresa de Tecnologia",1);
 insert into empresa(id_empresa,nombre_empresa,descripcion,id_usuario) values (2,"IBM","Tecnologia y mas, Empresa dedicada a la comunidad y a otras cosas",1);
+INSERT INTO `habilidad` (`id_habilidad`, `descripcion`, `id_profesional`) VALUES ('1', 'Idioma', '1'), ('2', 'Curso', '1');
+
+INSERT INTO `idioma` (`id_idioma`, `idioma`, `id_habilidad`) VALUES ('1', 'Español', '1'), ('2', 'Ingles', '1');
+
+INSERT INTO `curso` (`id_curso`, `curso`, `id_habilidad`) VALUES ('1', 'Master en JAVA', '2'), ('2', 'Master en Javascript', '2');
+ 
+

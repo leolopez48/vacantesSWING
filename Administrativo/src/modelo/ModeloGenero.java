@@ -12,15 +12,13 @@ package modelo;
 public class ModeloGenero {
     public Integer id_genero;
     public String genero;
-    public ModeloProfesional id_profesional;
 
     public ModeloGenero() {
     }
 
-    public ModeloGenero(Integer id_genero, String genero, ModeloProfesional id_profesional) {
+    public ModeloGenero(Integer id_genero, String genero) {
         this.id_genero = id_genero;
         this.genero = genero;
-        this.id_profesional = id_profesional;
     }
 
     public Integer getId_genero() {
@@ -37,14 +35,6 @@ public class ModeloGenero {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public ModeloProfesional getId_profesional() {
-        return id_profesional;
-    }
-
-    public void setId_profesional(ModeloProfesional id_profesional) {
-        this.id_profesional = id_profesional;
-    }    
+    } 
     
 }
