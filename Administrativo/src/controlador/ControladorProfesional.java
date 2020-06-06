@@ -17,7 +17,6 @@ import modelo.ModeloUsuario;
  * @author Leonel
  */
 public class ControladorProfesional {
-        modelo.ModeloProfesional emp = new modelo.ModeloProfesional();
     Credenciales bd = new Credenciales();
     List<modelo.ModeloProfesional> data = new ArrayList<>();
     String sql="";
@@ -28,7 +27,8 @@ public class ControladorProfesional {
     
     
     public List<modelo.ModeloProfesional> seleccionar() {
-        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario inner join genero on profesional.id_genero = genero.id_genero";
+        this.sql="select * from profesional inner join usuario on profesional.id_usuario = usuario.id_usuario inner join"
+                + " genero on profesional.id_genero = genero.id_genero";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
@@ -96,5 +96,31 @@ public class ControladorProfesional {
             e.printStackTrace();
         }
         return pro;  
+    }
+    
+    public Integer actualizarProfesional(Integer genero, Integer edad, String nombre_profesional
+            , String apellido_profesional, String profesion, String correo, Integer id_usuario){
+        Integer fila=0;
+        this.sql = "UPDATE profesional as p inner join usuario as u on p.id_profesional = u.id_usuario set p.id_genero = ?, "
+                + "p.edad=?, p.nombre_profesional=?, p.apellido_profesional=?, p.profesion=?, p.correo=? where u.id_usuario = ?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, genero);
+            this.pst.setInt(2, edad);
+            this.pst.setString(3, nombre_profesional);
+            this.pst.setString(4, apellido_profesional);
+            this.pst.setString(5, profesion);
+            this.pst.setString(6, correo);
+            this.pst.setInt(7, id_usuario);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila;
     }
 }

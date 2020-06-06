@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.ModeloUsuario;
 
 /**
@@ -59,4 +60,48 @@ public class ControladorUsuario {
         }
         return this.data;  
     }*/
+    
+    public Integer deshabilitarUsuario(Integer id_usuario, Integer estado) {
+        Integer fila =0;
+        this.sql="update usuario set estado = ? where id_usuario=?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, estado);
+            this.pst.setInt(2, id_usuario);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            return fila;
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila; 
+    }
+    
+        public Integer actualizarProfesional(String usuario, Integer prioridad, String contra, String foto_usuario, 
+                Integer estado, Integer id){
+        Integer fila=0;
+        this.sql = "UPDATE usuario set nombre_usuario=?, prioridad=?, contra=?, foto_usuario=?, estado=? where id_usuario = ?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setString(1, usuario);
+            this.pst.setInt(2, prioridad);
+            this.pst.setString(3, contra);
+            this.pst.setString(4, foto_usuario);
+            this.pst.setInt(5, estado);
+            this.pst.setInt(6, id);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila;
+    }
 }

@@ -46,6 +46,15 @@ public class ModeloProfesional {
         this.genero = genero;
     }
 
+    public ModeloProfesional(Integer id_profesional, Integer edad, String nombre_profesional, String apellido_profesional, String correo) {
+        this.id_profesional = id_profesional;
+        this.edad = edad;
+        this.nombre_profesional = nombre_profesional;
+        this.apellido_profesional = apellido_profesional;
+        this.correo = correo;
+
+    }
+
     public ModeloProfesional(Integer id_profesional) {
         this.id_profesional = id_profesional;
     }

@@ -1,5 +1,9 @@
 package controlador;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author CAMPOS
@@ -9,6 +13,7 @@ public class Credenciales {
     private String url;
     private String usuario;
     private String contraseña;
+    Connection con;
 
     public Credenciales() {
         this.driver = "com.mysql.jdbc.Driver";
@@ -33,6 +38,14 @@ public class Credenciales {
         return contraseña;
     }
     
-    
+    public Connection getConnection() throws SQLException{
+        try {
+            con =  DriverManager.getConnection(url, usuario, contraseña);
+        } catch (SQLException e) {
+            System.out.println("No se pudo conectar");
+            con = null;
+        }
+        return con;
+    }
     
 }

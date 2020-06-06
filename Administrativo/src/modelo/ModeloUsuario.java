@@ -26,6 +26,7 @@ public class ModeloUsuario {
         this.contra = contra;
         this.foto = foto;
         this.estado = estado;
+        this.id_usuario = id_usuario;
     }
 
     public String getFoto() {
@@ -44,7 +45,7 @@ public class ModeloUsuario {
         this.estado = estado;
     }
 
-    public int getId_usuario() {
+    public Integer getId_usuario() {
         return id_usuario;
     }
 
@@ -60,7 +61,7 @@ public class ModeloUsuario {
         this.nombre_usuario = nombre_usuario;
     }
 
-    public int getPrioridad() {
+    public Integer getPrioridad() {
         return prioridad;
     }
 

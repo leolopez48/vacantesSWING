@@ -27,7 +27,7 @@ public class ControladorHabilidades {
     
     public ArrayList<modelo.ModeloHabilidades> seleccionarIdiomas(Integer id_profesional) {
         ModeloHabilidades pro=null;
-        this.sql="SELECT * FROM habilidad where id_profesional=?";
+        this.sql="SELECT * FROM habilidad inner join profesional on habilidad.id_profesional = profesional.id_profesional where profesional.id_profesional=?";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
@@ -37,7 +37,11 @@ public class ControladorHabilidades {
             while(this.rs.next()){
                 data.add(new modelo.ModeloHabilidades(this.rs.getInt("id_habilidad"),
                         this.rs.getString("descripcion"),
-                        new ModeloProfesional(this.rs.getInt("id_profesional"))
+                        new ModeloProfesional(this.rs.getInt("id_profesional"), 
+                        this.rs.getInt("edad"), 
+                        this.rs.getString("nombre_profesional"),
+                        this.rs.getString("apellido_profesional"),
+                        this.rs.getString("correo"))
                 ));
             }
             this.con.close();
