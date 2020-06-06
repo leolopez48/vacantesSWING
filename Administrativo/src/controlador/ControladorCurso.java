@@ -45,4 +45,42 @@ public class ControladorCurso {
         }
         return data;  
     }
+    
+    public Boolean insertarCurso(Integer id_curso, String curso, Integer id_habilidad) {
+        Boolean insertado=false;
+        this.sql="insert into curso (id_curso, curso, id_habilidad) values (?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_curso);
+            this.pst.setString(2, curso);
+            this.pst.setInt(3, id_habilidad);
+            this.pst.executeUpdate();
+            this.con.close();
+            insertado = true;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return insertado;
+    }
+    
+        public Boolean actualizarCurso(Integer id_curso, String curso, Integer id_habilidad) {
+        Boolean insertado=false;
+        this.sql="update curso set curso=?, id_habilidad=? where id_curso=?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setString(1, curso);
+            this.pst.setInt(2, id_habilidad);
+            this.pst.setInt(3, id_curso);
+            this.pst.executeUpdate();
+            this.con.close();
+            insertado = true;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return insertado;
+    }
 }

@@ -6,7 +6,9 @@
 package vistas;
 
 import controlador.Credenciales;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -16,6 +18,8 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -173,15 +177,23 @@ public class seleccionarReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+super.dispose();
+        Credenciales cre = new Credenciales();
         super.dispose();
-        JasperReport reporte;
-
-       Credenciales cre = new Credenciales();
+      
         try {
-            reporte = JasperCompileManager.compileReport("src/vistas/ReporteProfesionales.jrxml");
-            JasperPrint jp = JasperFillManager.fillReport(reporte, null, cre.getConnection());
+            HashMap hash=new HashMap(2);
+    
+            
+            InputStream file=getClass().getResourceAsStream("/vistas/ReporteProfesionales.jrxml");
+            JasperDesign jasperDesign= JRXmlLoader.load(file);
+            
+           
+            JasperReport jasperReport= JasperCompileManager.compileReport(jasperDesign);
+            JasperPrint jp = JasperFillManager.fillReport(jasperReport, hash, cre.getConnection());
             JasperViewer visor = new JasperViewer(jp, false);
             visor.setVisible(true);
+            
         } catch (JRException ex) {
             System.out.println("Error: "+ex);
         } catch (SQLException ex) {
@@ -190,13 +202,19 @@ public class seleccionarReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Credenciales cre = new Credenciales();
         super.dispose();
-        JasperReport reporte;
-
-       Credenciales cre = new Credenciales();
+      
         try {
-            reporte = JasperCompileManager.compileReport("src/vistas/ReportesEmpresa.jrxml");
-            JasperPrint jp = JasperFillManager.fillReport(reporte, null, cre.getConnection());
+            HashMap hash=new HashMap(2);
+    
+            
+            InputStream file=getClass().getResourceAsStream("/vistas/ReportesEmpresa.jrxml");
+            JasperDesign jasperDesign= JRXmlLoader.load(file);
+            
+           
+            JasperReport jasperReport= JasperCompileManager.compileReport(jasperDesign);
+            JasperPrint jp = JasperFillManager.fillReport(jasperReport, hash, cre.getConnection());
             JasperViewer visor = new JasperViewer(jp, false);
             visor.setVisible(true);
             

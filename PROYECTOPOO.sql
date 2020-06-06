@@ -29,7 +29,7 @@ id_profesional int not null
 
 create table idioma 
 (
-id_idioma int not null,
+id_idioma int not null AUTO_INCREMENT,
 idioma varchar(50) null,
 id_habilidad int not null
 );
