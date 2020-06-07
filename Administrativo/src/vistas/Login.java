@@ -8,11 +8,14 @@ package vistas;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import controlador.Credenciales;
+import controlador.Crypting;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ModeloUsuario;
 import modelo.ModeloProfesional;
@@ -26,6 +29,7 @@ public class Login extends javax.swing.JFrame {
 
     //Variables
     Credenciales bd = new Credenciales();
+    Crypting crp;
     Connection con;
     String sql="";
     List<ModeloUsuario> data = new ArrayList<>();
@@ -35,7 +39,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login() throws Exception {
+        this.crp = new Crypting();
         initComponents();
     }
 
@@ -54,14 +59,14 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField3 = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        txtContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -111,11 +116,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(49, 57, 69));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 310, 10));
 
-        jTextField3.setBackground(new java.awt.Color(233, 235, 237));
-        jTextField3.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jTextField3.setBorder(null);
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 269, 28));
-
         btnLogin.setBackground(new java.awt.Color(49, 57, 69));
         btnLogin.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(49, 57, 69));
@@ -139,10 +139,10 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("Contraseña");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(233, 235, 237));
-        jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jTextField1.setBorder(null);
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 269, 28));
+        txtUsuario.setBackground(new java.awt.Color(233, 235, 237));
+        txtUsuario.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txtUsuario.setBorder(null);
+        jPanel2.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 269, 28));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icons8_user_32px.png"))); // NOI18N
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
@@ -152,6 +152,11 @@ public class Login extends javax.swing.JFrame {
 
         jSeparator3.setForeground(new java.awt.Color(49, 57, 69));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 310, 10));
+
+        txtContra.setBackground(new java.awt.Color(233, 235, 237));
+        txtContra.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtContra.setBorder(null);
+        jPanel2.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 270, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,14 +180,19 @@ public class Login extends javax.swing.JFrame {
     //Botón login
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         int validado = 0;
+        String encrypted="";
         this.sql="select nombre_usuario, contra, prioridad, estado from usuario";
         try {
+            
+            
+            
             Class.forName(bd.getDriver());
             this.con = DriverManager.getConnection(bd.getUrl(),bd.getUsuario(),bd.getContraseña());
             this.pst = this.con.prepareStatement(this.sql);
             this.rs = this.pst.executeQuery();
             while(this.rs.next()){
-                if(this.rs.getString("nombre_usuario").equals(jTextField1.getText()) && this.rs.getString("contra").equals(jTextField3.getText()) 
+                encrypted = crp.encrypt(new String(txtContra.getPassword()));
+                if(this.rs.getString("nombre_usuario").equals(txtUsuario.getText()) && this.rs.getString("contra").equals(encrypted) 
                         && this.rs.getInt("prioridad") == 1 && this.rs.getInt("estado") == 1){
                     super.setVisible(false);
                     new home().setVisible(true);
@@ -232,7 +242,11 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                try {
+                    new Login().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -250,7 +264,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPasswordField txtContra;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

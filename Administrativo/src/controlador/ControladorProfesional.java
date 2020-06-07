@@ -123,4 +123,51 @@ public class ControladorProfesional {
         }
         return fila;
     }
+    
+        public Integer insertarProfesional(Integer id_profesional, Integer genero, Integer edad, String nombre_profesional
+            , String apellido_profesional, String profesion, String correo, Integer id_usuario){
+        Integer fila=0;
+        this.sql = "insert into profesional (id_profesional, nombre_profesional, apellido_profesional, edad, correo, id_genero, id_usuario, profesion) values(?,?,?,?,?,?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_profesional);
+            this.pst.setString(2, nombre_profesional);
+            this.pst.setString(3, apellido_profesional);
+            this.pst.setInt(4, edad);
+            this.pst.setString(5, correo);
+            this.pst.setInt(6, genero);
+            this.pst.setInt(7, id_usuario);
+            this.pst.setString(8, profesion);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila;
+    }
+        
+    public Integer ultimoIdProfesional() {
+        Integer max = 0;
+        this.sql="select id_profesional from profesional";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_profesional");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
+    }
 }

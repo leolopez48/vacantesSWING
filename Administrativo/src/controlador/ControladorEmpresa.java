@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.ModeloUsuario;
 import modelo.ModeloEmpresa;
 import modelo.ModeloProfesional;
@@ -59,7 +60,7 @@ public class ControladorEmpresa {
     }
     
     public modelo.ModeloEmpresa seleccionarEmpresa(Integer id_empresa) {
-        ModeloEmpresa pro=null;
+        ModeloEmpresa emp=null;
         this.sql="SELECT * FROM empresa AS pro INNER JOIN usuario as usu ON pro.id_empresa = usu.id_usuario where pro.id_empresa=?";
         try {
             Class.forName(bd.getDriver());
@@ -69,7 +70,7 @@ public class ControladorEmpresa {
             this.rs = this.pst.executeQuery();
             while(this.rs.next()){
                 
-                    pro = (new modelo.ModeloEmpresa(this.rs.getInt("id_empresa"),  
+                    emp = (new modelo.ModeloEmpresa(this.rs.getInt("id_empresa"),  
                         this.rs.getString("nombre_empresa"),
                         this.rs.getString("descripcion"),
                         this.rs.getInt("id_usuario"),
@@ -86,7 +87,74 @@ public class ControladorEmpresa {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return pro;  
+        return emp;  
+    }
+    
+    
+    public Integer actualizarEmpresa(String nombre_empresa, String descripcion, Integer id_usuario){
+                                                          
+        Integer fila=0;
+        this.sql = "UPDATE empresa as emp inner join usuario as usu on emp.id_empresa = usu.id_usuario set emp.nombre_empresa= ? ,emp.descripcion=? where usu.id_usuario = ?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setString(1, nombre_empresa);
+            this.pst.setString(2, descripcion);
+            this.pst.setInt(3, id_usuario);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, sql, 0);
+        }
+        return fila;
+    }
+    
+    public Integer insertarEmpresa(Integer id_empresa, String nombre_empresa, String descripcion, Integer id_usuario){
+                                                          
+        Integer fila=0;
+        this.sql = "insert into empresa (id_empresa, nombre_empresa, descripcion, id_usuario) values(?,?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_empresa);
+            this.pst.setString(2, nombre_empresa);
+            this.pst.setString(3, descripcion);
+            this.pst.setInt(4, id_usuario);
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, sql, 0);
+        }
+        return fila;
+    }
+    
+    public Integer ultimoIdEmpresa() {
+        Integer max = 0;
+        this.sql="select id_empresa from empresa";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_empresa");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
     }
     
 }

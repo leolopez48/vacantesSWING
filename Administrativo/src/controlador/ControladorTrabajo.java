@@ -55,4 +55,63 @@ public class ControladorTrabajo {
         }
         return data;  
     }
+    
+    public Boolean insertarTrabajo(Integer id_trabajos, String trabajo, Integer id_profesional) {
+        Boolean insertado=false;
+        this.sql="insert into ultimos_trabajos (id_trabajos, trabajo, id_habilidad) values (?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_trabajos);
+            this.pst.setString(2, trabajo);
+            this.pst.setInt(3, id_profesional);
+            this.pst.executeUpdate();
+            this.con.close();
+            insertado = true;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return insertado;
+    }
+    
+    public Boolean actualizarTrabajo(Integer id_trabajos, String trabajo, Integer id_habilidad) {
+        Boolean insertado=false;
+        this.sql="update ultimos_trabajos set trabajo=?, id_habilidad=? where id_trabajos=?";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setString(1, trabajo);
+            this.pst.setInt(2, id_habilidad);
+            this.pst.setInt(3, id_trabajos);
+            this.pst.executeUpdate();
+            this.con.close();
+            insertado = true;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return insertado;
+    }
+    
+    public Integer ultimoIdTrabajo() {
+        Integer max = 0;
+        this.sql="select id_trabajos from ultimos_trabajos";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_trabajos");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
+    }
 }

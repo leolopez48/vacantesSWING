@@ -72,13 +72,15 @@ public class ControladorIdioma {
         
     public Integer ultimoIdIdioma() {
         Integer max = 0;
-        this.sql="select MAX(id_idioma) from idioma";
+        this.sql="select id_idioma from idioma";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
             this.pst = this.con.prepareStatement(this.sql);
             this.rs = this.pst.executeQuery();
-            max = this.rs.getInt("id_idioma");
+            while(this.rs.next()){
+                max = this.rs.getInt("id_idioma");
+            }
             this.con.close();
             this.rs.close();
             
@@ -110,7 +112,7 @@ public class ControladorIdioma {
     
     public ModeloIdioma seleccionarIdioma(Integer id_idioma) {
         ModeloIdioma pro=null;
-        this.sql="SELECT id_idioma FROM habilidad  where id_idioma=?";
+        this.sql="SELECT * FROM idioma where id_idioma=?";
         try {
             Class.forName(bd.getDriver());
             this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());

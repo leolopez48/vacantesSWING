@@ -53,4 +53,46 @@ public class ControladorHabilidades {
         return data;  
     }
     
+    public Integer InsertarHabilidad(Integer id_habilidad, String descripcion, Integer id_profesional){
+        Integer fila=0;
+        this.sql = "insert into habilidad (id_habilidad, descripcion, id_profesional) values(?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id_habilidad);
+            this.pst.setString(2, descripcion);
+            this.pst.setInt(3, id_profesional);
+            
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila;
+    }
+    
+    public Integer ultimoIdHabilidad() {
+        Integer max = 0;
+        this.sql="select id_habilidad from habilidad";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_habilidad");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
+    }
+    
 }

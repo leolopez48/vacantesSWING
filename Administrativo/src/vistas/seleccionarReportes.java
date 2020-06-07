@@ -172,7 +172,11 @@ public class seleccionarReportes extends javax.swing.JFrame {
         int input = JOptionPane.showConfirmDialog(rootPane, "Desea cerrar sesión?", "Salir", JOptionPane.YES_NO_OPTION);
         if(input == 0){
             super.dispose();
-            new Login().setVisible(true);
+            try {
+                new Login().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(seleccionarReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jLabel8MouseClicked
 

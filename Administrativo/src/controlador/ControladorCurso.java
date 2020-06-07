@@ -83,4 +83,25 @@ public class ControladorCurso {
         }
         return insertado;
     }
+        
+    public Integer ultimoIdCurso() {
+        Integer max = 0;
+        this.sql="select id_curso from curso";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_curso");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
+    }
 }

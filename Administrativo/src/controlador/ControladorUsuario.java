@@ -81,7 +81,7 @@ public class ControladorUsuario {
         return fila; 
     }
     
-        public Integer actualizarProfesional(String usuario, Integer prioridad, String contra, String foto_usuario, 
+    public Integer actualizarProfesional(String usuario, Integer prioridad, String contra, String foto_usuario, 
                 Integer estado, Integer id){
         Integer fila=0;
         this.sql = "UPDATE usuario set nombre_usuario=?, prioridad=?, contra=?, foto_usuario=?, estado=? where id_usuario = ?";
@@ -103,5 +103,51 @@ public class ControladorUsuario {
             e.printStackTrace();
         }
         return fila;
+    }
+    
+    public Integer InsertarProfesional(String usuario, Integer prioridad, String contra, String foto_usuario, 
+                Integer estado, Integer id){
+        Integer fila=0;
+        this.sql = "insert into usuario (id_usuario, nombre_usuario, prioridad, contra, foto_usuario, estado) values(?,?,?,?,?,?)";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.pst.setInt(1, id);
+            this.pst.setString(2, usuario);
+            this.pst.setInt(3, prioridad);
+            this.pst.setString(4, contra);
+            this.pst.setString(5, foto_usuario);
+            this.pst.setInt(6, estado);
+            
+            fila = this.pst.executeUpdate();
+            this.con.close();
+            //this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fila;
+    }
+    
+    public Integer ultimoIdUsuario() {
+        Integer max = 0;
+        this.sql="select id_usuario from usuario";
+        try {
+            Class.forName(bd.getDriver());
+            this.con= DriverManager.getConnection(bd.getUrl(), bd.getUsuario(),bd.getContraseña());
+            this.pst = this.con.prepareStatement(this.sql);
+            this.rs = this.pst.executeQuery();
+            while(this.rs.next()){
+                max = this.rs.getInt("id_usuario");
+            }
+            this.con.close();
+            this.rs.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            max = 0;
+        }
+        return max;
     }
 }
